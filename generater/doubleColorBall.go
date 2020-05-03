@@ -41,8 +41,14 @@ func randomBall(ball string) []int {
 	var red []int  // 红球
 	var blue []int // 蓝球
 	if ball == "red" {
-		for i := 0; i < 6; i++ {
-			red = append(red, rand.Intn(33)+1)
+		for i := 0; i < 6; {
+			num := rand.Intn(33) + 1
+			if isExist(red, num) { // 去重
+				continue
+			} else {
+				red = append(red, num)
+			}
+			i++
 		}
 		return red
 	} else if ball == "blue" {
@@ -52,4 +58,13 @@ func randomBall(ball string) []int {
 		log.Fatal("The input ball color is INVALID.")
 		return nil
 	}
+}
+
+func isExist(nums []int, num int) bool {
+	for _, v := range nums {
+		if v == num {
+			return true
+		}
+	}
+	return false
 }
