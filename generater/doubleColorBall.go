@@ -37,7 +37,8 @@ func DoubleColorBall() []string {
 }
 
 func randomBall(ball string) []int {
-	//rand.Seed(time.Now().UnixNano()) // 禁止被调用函数内使用获取seed，并发或者高性能场景下，获取到的seed会是一致的，应该在全局定义一次seed
+	// 禁止被调用函数内使用获取seed，并发或者高性能场景下，获取到的seed会是一致的，应该在全局定义一次seed
+	//rand.Seed(time.Now().UnixNano())
 	var red []int  // 红球
 	var blue []int // 蓝球
 	if ball == "red" {
