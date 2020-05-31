@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"lottery/common"
 	"lottery/generater"
 	"math/rand"
 	"net/http"
@@ -19,5 +20,19 @@ func main() {
 		c.String(http.StatusOK, strings.Join(balls, " "))
 	})
 
-	r.Run("0.0.0.0:8080")
+	r.GET("/help", func(c *gin.Context) {
+		c.String(http.StatusOK, common.Help())
+	})
+
+	r.GET("/", func(c *gin.Context) {
+		c.Request.URL.Path = "/help" //重定向
+		r.HandleContext(c)
+	})
+
+	r.GET("/blog", func(c *gin.Context) {
+		//重定向
+		c.Redirect(http.StatusMovedPermanently, "https://bevisy.github.io/")
+	})
+
+	r.Run("0.0.0.0:80")
 }
